@@ -1,8 +1,3 @@
-'''
-This tool crops a 1 pixel border from each picture in the folder.
-Ran successfully on May 10, 2019; do NOT run again unless you want to crop another 1 pixel border.
-'''
-
 from PIL import Image
 import os
 import random
@@ -33,17 +28,15 @@ try:
     folder_path = filedialog.askdirectory()
 
     files = os.listdir(folder_path)
+    # Specify number of pixels to crop from border
+    pixels = int(input('Number of pixels to crop: '))
     for i in files:
-
         print('Processing ' + i)
 
         image = folder_path + r"\\" + str(i)
         im = Image.open(image)
 
         width, height = im.size
-
-        #Specify number of pixels to crop from border
-        pixels = 1
 
         coords = (pixels, pixels, width - pixels, height - pixels)
 
