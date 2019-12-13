@@ -32,15 +32,14 @@ root.withdraw()
 folder_path = filedialog.askdirectory()
 
 files = os.listdir(folder_path)
-print(len(files))
 
 if FileNotFoundError: quit()
 
-for i in range(0, len(files)):
+for i in files:
 
-    print('Processing ' + files[i])
+    print('Processing ' + i)
 
-    image = folder_path + r"\\" + str(files[i])
+    image = folder_path + r"\\" + str(i)
     im = Image.open(image)
 
     width, height = im.size
