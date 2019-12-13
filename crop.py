@@ -37,11 +37,13 @@ try:
         im = Image.open(image)
 
         width, height = im.size
-
-        coords = (pixels, pixels, width - pixels, height - pixels)
-
-        #crop the image
-        crop(image, coords, image)
+        if (pixels > width/2) or (pixels > height/2):
+            print('Image too small - skipping...')
+            continue
+        else:
+            coords = (pixels, pixels, width - pixels, height - pixels)
+            #crop the image
+            crop(image, coords, image)
 except FileNotFoundError:
     print('No folder selected.')
     quit()
