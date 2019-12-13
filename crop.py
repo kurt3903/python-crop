@@ -6,33 +6,49 @@ Ran successfully on May 10, 2019; do NOT run again unless you want to crop anoth
 from PIL import Image
 import os
 import random
+import tkinter as tk
+from tkinter import filedialog
 
 def crop(image_path, coords, saved_location):
 
     """
-    @param image_path: The path to the image to edit
-    @param coords: A tuple of x/y coordinates (x1, y1, x2, y2)
-    @param saved_location: Path to save the cropped image
+    Parameters:
+
+    image_path: The path to the image to edit
+    coords: A tuple of x/y coordinates (x1, y1, x2, y2)
+    saved_location: Path to save the cropped image
     """
     image_obj = Image.open(image_path)
     cropped_image = image_obj.crop(coords)
     cropped_image.save(saved_location)
-    #cropped_image.show()
+    cropped_image.show()
 
-path = r""
-files = os.listdir(path)
 
-for i in range(0, len(files) + 1):
+#Prompt folder path:
 
-    print(files[i])
+root = tk.Tk()
+root.withdraw()
 
-    image = path+ r"\\" + str(files[i])
+folder_path = filedialog.askdirectory()
+
+files = os.listdir(folder_path)
+print(len(files))
+
+if FileNotFoundError: quit()
+
+for i in range(0, len(files)):
+
+    print('Processing ' + files[i])
+
+    image = folder_path + r"\\" + str(files[i])
     im = Image.open(image)
 
     width, height = im.size
 
-    coords = (1,1, width, height)
-    #im.show()
+    #Specify number of pixels to crop from border
+    pixels = 1
+
+    coords = (pixels, pixels, width - pixels, height - pixels)
 
     #crop the image
-    crop(image, (1, 1, width - 1, height - 1), image)
+    crop(image, coords, image)
