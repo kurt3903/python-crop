@@ -21,7 +21,7 @@ def crop(image_path, coords, saved_location):
     image_obj = Image.open(image_path)
     cropped_image = image_obj.crop(coords)
     cropped_image.save(saved_location)
-    cropped_image.show()
+    #cropped_image.show()
 
 
 #Prompt folder path:
@@ -29,25 +29,28 @@ def crop(image_path, coords, saved_location):
 root = tk.Tk()
 root.withdraw()
 
-folder_path = filedialog.askdirectory()
+try:
+    folder_path = filedialog.askdirectory()
 
-files = os.listdir(folder_path)
+    files = os.listdir(folder_path)
+    for i in files:
 
-if FileNotFoundError: quit()
+        print('Processing ' + i)
 
-for i in files:
+        image = folder_path + r"\\" + str(i)
+        im = Image.open(image)
 
-    print('Processing ' + i)
+        width, height = im.size
 
-    image = folder_path + r"\\" + str(i)
-    im = Image.open(image)
+        #Specify number of pixels to crop from border
+        pixels = 1
 
-    width, height = im.size
+        coords = (pixels, pixels, width - pixels, height - pixels)
 
-    #Specify number of pixels to crop from border
-    pixels = 1
-
-    coords = (pixels, pixels, width - pixels, height - pixels)
-
-    #crop the image
-    crop(image, coords, image)
+        #crop the image
+        crop(image, coords, image)
+except FileNotFoundError:
+    print('No folder selected.')
+    quit()
+finally:
+    print('\n Finished.')
